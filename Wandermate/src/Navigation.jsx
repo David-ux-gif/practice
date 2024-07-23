@@ -3,25 +3,29 @@ import React from "react";
 
 function Navigation() {
   return (
-    <>
-      <nav className="shadow-lg p-4">
-        <ul className="flex space-x-10 font-bold justify-evenly">
-           <h1 className="text-2xl font-bold text-blue-700">Wandermate</h1>
-            <li>
-              <Link to="/" className="text-slate-950 text-lg hover:underline ">Home</Link>
-            </li>
-            <li>
-              <Link to="/destination" className="text-slate-950 text-lg hover:underline ">Destination</Link>
-            </li>
-            <li>
-              <Link to="/travelpackage" className="text-slate-950 text-lg hover:underline ">Travel Packages</Link>
-            </li>
-            <li>
-              <Link to="/hotel" className="text-slate-950 text-lg hover:underline ">Hotel</Link>
-            </li>
+    <nav>
+      <div className="container mx-auto flex justify-between items-center p-5">
+        <h1 className="text-2xl font-bold text-blue-700">
+          <Link to="/">Wandermate</Link>
+        </h1>
+        <ul className="flex gap-8 font-bold text-lg ">
+          <li>
+            <Link to="/home" className="hover:underline">Home</Link>
+          </li>
+          <li>
+            <Link to="/destination" className="hover:underline">Destination</Link>
+          </li>
+          <li>
+            <Link to="/travelpackages" className="hover:underline">Travel Packages</Link>
+          </li>
+          <li>
+            <Link to="/hotels" className="hover:underline">Hotel</Link>
+          </li>
         </ul>
-      </nav>
-    </>
+        <Link to="/profile"><img src="src/assets/userProfile.jpg" alt="User Profile" className="w-10 h-10 rounded-full" /></Link>
+      </div>
+    </nav>
   );
 }
+
 export default Navigation;

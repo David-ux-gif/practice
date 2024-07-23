@@ -9,26 +9,37 @@ import Navigation from "./Navigation";
 import UseEffect from "./UseEffect";
 import HotelList from "./Hotel";
 import Destination from "./Destination";
-import Reviews from "./Reviews";
 import Home from "./Home";
+import Landing from "./Landing";
+import Hotel from "./Hotel-list";
+import TravelPackages from "./TravelPackages";
+import TravelList from "./Travel-list";
+import ProfileCard from "./Profile";
+import Dashboard from "./DashBoard/DashBoard";
+
+
 
 function App() {
-
   return (
     <>
       {/* <UseEffect/> */}
-      
+
       <BrowserRouter>
-      <Navigation/>
-      <Routes>
-        {/* <Route path="/signin" element= {<Signin/> }/>
-        <Route path="/signup" element= {<Signup/> }/> 
-        <Route path="/review" element= {<Reviews/>}/> */}
-        <Route path="/" element= {<Home/>}/>
-        <Route path="/destination" element= {<Destination/> }/>
-        <Route path="/hotel" element= {<HotelList/> }/>
-      </Routes>
-      </BrowserRouter>     
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Landing/>}/>
+          <Route path="/signin" element= {<Signin/> }/>
+          <Route path="/signup" element= {<Signup/> }/> 
+          <Route path="/home" element={<Home />} />
+          <Route path="/destination" element={<Destination />} />
+          <Route path="/travelpackages" element={<TravelPackages/>} />
+          <Route path="/travelpackages/:id" element={<TravelList />} />
+          <Route path="/hotels" element={<HotelList />} />
+          <Route path="/hotels/:id" element={<Hotel />} />
+          <Route path="/profile" element={<ProfileCard />} />
+          <Route path="/admin/*" element={<Dashboard/>} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Card from "./Card";
+import { Link } from "react-router-dom";
 
 const HotelList = () => {
   const [hotels, setHotels] = useState([]);
@@ -10,9 +10,11 @@ const HotelList = () => {
     const fetchHotels = async () => {
       try {
         const response = await fetch("http://localhost:3000/hotels");
+
         if (!response.ok) {
-          throw new Error("Error 404! Not found");
+          throw new Error("Network response not ok");
         }
+
         const data = await response.json();
         setHotels(data);
         setLoading(false);
@@ -21,27 +23,35 @@ const HotelList = () => {
         setLoading(false);
       }
     };
+
     fetchHotels();
   }, []);
 
   if (loading) {
-    return <p className="text-center text-2xl mt-20">Loading...</p>;
+    return <p>Loading...</p>;
   }
+
   if (error) {
-    return (
-      <p className="text-center text-2xl text-red-500 mt-20">
-        Error: {error.message}
-      </p>
-    );
+    return <p>Error: {error.message}</p>;
   }
 
   return (
     <div className="max-w-6xl m-auto rounded-lg">
-      <h1 className="font-bold text-2xl pt-2 h-14 ">Hotels</h1>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      <ul className="flex flex-col gap-8 mt-8">
         {hotels.map((hotel) => (
-          <li key={hotel.id} className="bg-green-100 ">
-            <Card props={hotel} />
+          <li key={hotel.id} className="bg-white rounded-lg shadow-lg flex w-full transition-transform duration-300 hover:scale-105">
+            <img src={hotel.img} alt={hotel.name} className="h-72 w-1/2 object-cover rounded-l-lg"/>
+            <div className="p-4 w-1/2 flex flex-col justify-center items-center">
+              <div>
+                <h2 className="text-xl font-medium mb-2">{hotel.name}</h2>
+                <p className="text-lg font-semibold text-center"> RS. {hotel.price} </p>
+              </div>
+              <div className="mt-4">
+                <Link to={`${hotel.id}`}  className="bg-blue-500 text-white rounded py-2 px-4 w-full mt-2 ml-6" > View Deal </Link>
+                <p className="mt-2 text-sm text-gray-500 text-center">Free Cancellation</p>
+                <p className="mt-1 text-sm text-gray-500 text-center">Reserve now, pay at stay</p>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
