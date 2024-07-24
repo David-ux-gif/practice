@@ -4,7 +4,7 @@ import Booking from './Booking';
 import Users from './Users';
 import Travel from './Travel';
 import Hotels from './Hotels';
-import Review from './Review';
+import Destinations from './Destinations';
 
 const Dashboard = () => {
   return (
@@ -28,14 +28,14 @@ const Path = () => {
       <Route path="travels" element={<Travel />} />
       <Route path="hotels" element={<Hotels />} />
       <Route path="bookings" element={<Booking />} />
-      <Route path="reviews" element={<Review />} />
+      <Route path="destination" element={<Destinations />} />
     </Routes>
   );
 };
 
 const SideBar = () => {
   return (
-    <div className="w-[150px] bg-gray-100 h-screen ">
+    <div className="w-52 bg-gray-100 h-screen ">
       <ul className="space-y-2">
         <li>
           <Link to="users" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">Users</Link>
@@ -50,7 +50,7 @@ const SideBar = () => {
           <Link to="bookings" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">Booking</Link>
         </li>
         <li>
-          <Link to="reviews" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">Reviews</Link>
+          <Link to="destination" className="block py-2 px-4 text-gray-700 hover:bg-gray-200">Destination</Link>
         </li>
       </ul>
     </div>

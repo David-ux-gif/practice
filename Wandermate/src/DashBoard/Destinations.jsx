@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Booking = () => {
+const Destinations = () => {
   return (
     <>
       
@@ -8,4 +8,4 @@ const Booking = () => {
   )
 }
 
-export default Booking
+export default Destinations
