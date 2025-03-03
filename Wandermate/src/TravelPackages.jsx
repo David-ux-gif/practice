@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Footer from "./footer";
 
 const TravelPackages = () => {
-
   const [travelPackages, setTravelPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,20 +41,40 @@ const TravelPackages = () => {
     <div className="max-w-6xl m-auto rounded-lg">
       <ul className="flex flex-col gap-8 mt-8">
         {travelPackages.map((travel) => (
-          <li key={travel.id} className="bg-white rounded-lg shadow-lg flex w-full transition-transform duration-300 hover:scale-105">
-            <img src={travel.img} alt={travel.name} className="h-72 w-1/2 object-cover rounded-l-lg"/>
+          <li
+            key={travel.id}
+            className="bg-white rounded-lg shadow-lg flex w-full"
+          >
+            <img
+              src={travel.img}
+              alt={travel.name}
+              className="h-72 w-1/2 object-cover rounded-l-lg"
+            />
             <div className="p-4 w-1/2 flex flex-col justify-center items-center">
               <div>
                 <h2 className="text-4xl font-bold mb-2">{travel.name}</h2>
-                <p className="text-lg font-medium text-center"> Rs. {travel.price} </p>
+                <p className="text-lg font-medium text-center">
+                  {" "}
+                  Rs. {travel.price}{" "}
+                </p>
               </div>
               <div className="mt-4">
-                <Link to={`${travel.id}`}  className="bg-blue-500 text-white rounded py-2 px-4 w-full mt-2"> View Deal </Link>
+                <Link
+                  to={`${travel.id}`}
+                  className="bg-blue-500 text-white rounded py-2 px-4 w-full mt-2"
+                >
+                  {" "}
+                  View Deal{" "}
+                </Link>
               </div>
             </div>
           </li>
         ))}
       </ul>
+
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };

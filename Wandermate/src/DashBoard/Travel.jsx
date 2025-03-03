@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 const Travel = () => {
   const [travels, setTravel] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [currentTravelIndex, setCurrentTravelIndex] = useState(null);
   const [newTravel, setNewTravel] = useState({
-    id: "",
     name: "",
     price: "",
     img: "",
@@ -18,7 +19,7 @@ const Travel = () => {
     }
   };
 
-  const SaveTravelsFromStrg = (travel) => {
+  const SaveTravelsToStrg = (travel) => {
     localStorage.setItem("travels", JSON.stringify(travel));
   };
 
@@ -30,6 +31,11 @@ const Travel = () => {
     setShowForm(true);
   };
 
+  const handleCancel = () => {
+    setShowForm(false);
+    setEditMode(false);
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setNewTravel((prevState) => ({
@@ -38,13 +44,34 @@ const Travel = () => {
     }));
   };
 
-  const handleSaveHotels = () => {
-    const updatedTravel = [...travels, newTravel];
+  const handleEdit = (index) => {
+    setCurrentTravelIndex(index);
+    setNewTravel(travels[index]);
+    setShowForm(true);
+    setEditMode(true);
+  };
+
+  const handleDelete = (index) => {
+    const updatedTravel = [...travels];
+    updatedTravel.splice(index, 1);
     setTravel(updatedTravel);
-    SaveTravelsFromStrg(updatedTravel);
-    showForm(false);
+    SaveTravelsToStrg(updatedTravel);
+  };
+
+  const handleSaveTravels = () => {
+    let updatedTravel;
+    if (editMode) {
+      updatedTravel = travels.map((travel, index) =>
+        index === currentTravelIndex ? newTravel : travel
+      );
+    } else {
+      updatedTravel = [...travels, newTravel];
+    }
+    setTravel(updatedTravel);
+    SaveTravelsToStrg(updatedTravel);
+    setShowForm(false);
+    setEditMode(false);
     setNewTravel({
-      id: "",
       name: "",
       price: "",
       img: "",
@@ -52,63 +79,38 @@ const Travel = () => {
     });
   };
 
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const fetchTravel = async () => {
-  //     try {
-  //       const response = await fetch("http://localhost:3000/travelPackages");
-  //       if (!response.ok) {
-  //         throw new error("Network error");
-  //       }
-  //       const data = await response.json();
-  //       setTravel(data);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setError(error);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchTravel();
-  // }, []);
-
-  // if (loading) {
-  //   <p>Loading.....</p>;
-  // }
-
-  // if (error) {
-  //   <p>Error: {error.message}</p>;
-  // }
   return (
     <>
-      <div className="flex flex-col space-y-5 mx-8">
-        <div>
-          <table>
+      <div className="flex flex-col space-y-6 ml-10">
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border rounded-lg shadow-sm">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="px-4 py-2 border">Id</th>
-                <th className="px-4 py-2 border">Name</th>
-                <th className="px-4 py-2 border">Image</th>
-                <th className="px-4 py-2 border">Price</th>
-                <th className="px-4 py-2 border">Description</th>
-                <th className="px-4 py-2 border">Update</th>
+              <tr className="bg-gray-500 text-white">
+                <th className="px-6 py-3 border">Name</th>
+                <th className="px-6 py-3 border">Price</th>
+                <th className="px-6 py-3 border">Image</th>
+                <th className="px-6 py-3 border">Description</th>
+                <th className="px-6 py-3 border">Update</th>
               </tr>
             </thead>
-
             <tbody>
-              {travels.map((travel) => (
-                <tr key={travel.id} className="hover:bg-gray-100 text-sm">
-                  <td className="px-4 py-2 border">{travel.id}</td>
-                  <td className="px-4 py-2 border">{travel.name}</td>
-                  <td className="px-4 py-2 border">{travel.img}</td>
-                  <td className="px-4 py-2 border">{travel.price}</td>
-                  <td className="px-4 py-2 border">{travel.desc}</td>
-                  <td className="py-7 px-4 border flex">
-                    <button className="bg-blue-500 text-white px-2 py-1 rounded mr-2">
+              {travels.map((travel, index) => (
+                <tr key={index} className="hover:bg-gray-100 text-sm">
+                  <td className="px-6 py-3 border">{travel.name}</td>
+                  <td className="px-6 py-3 border">{travel.price}</td>
+                  <td className="px-6 py-3 border">{travel.img}</td>
+                  <td className="px-6 py-3 border">{travel.desc}</td>
+                  <td className="px-6 py-3 border flex space-x-2">
+                    <button
+                      className="bg-green-500 text-white px-3 py-2.5 rounded"
+                      onClick={() => handleEdit(index)}
+                    >
                       Edit
                     </button>
-                    <button className="bg-red-500 text-white px-2 py-1 rounded">
+                    <button
+                      className="bg-red-500 text-white px-3 py-2.5 rounded"
+                      onClick={() => handleDelete(index)}
+                    >
                       Delete
                     </button>
                   </td>
@@ -117,9 +119,9 @@ const Travel = () => {
             </tbody>
           </table>
         </div>
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex justify-center">
           <button
-            className="bg-blue-700 text-white px-3 py-2 rounded"
+            className="bg-blue-500 text-white px-5 py-2 rounded-lg shadow-md hover:bg-blue-700"
             onClick={handleAdd}
           >
             Add Travel
@@ -127,55 +129,73 @@ const Travel = () => {
         </div>
         {showForm && (
           <div>
-            <form action="">
+            <form className="space-y-4 mb-10">
               <div>
-                <label htmlFor="">Id</label>
-                <input
-                  type="text"
-                  name="id"
-                  value={newTravel.id}
-                  onChange={handleChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="">Name</label>
+                <label className="block text-md font-semibold text-gray-700">
+                  Name
+                </label>
                 <input
                   type="text"
                   name="name"
                   value={newTravel.name}
                   onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                  required
                 />
               </div>
               <div>
-                <label htmlFor="">Image</label>
+                <label className="block text-md font-semibold text-gray-700">
+                  Image
+                </label>
                 <input
                   type="text"
                   name="img"
                   value={newTravel.img}
                   onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                  required
                 />
               </div>
               <div>
-                <label htmlFor="">Price</label>
+                <label className="block text-md font-semibold text-gray-700">
+                  Price
+                </label>
                 <input
                   type="text"
                   name="price"
                   value={newTravel.price}
                   onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                  required
                 />
               </div>
               <div>
-                <label htmlFor="">Description</label>
-                <input
-                  type="text"
+                <label className="block text-md font-semibold text-gray-700">
+                  Description
+                </label>
+                <textarea
                   name="desc"
                   value={newTravel.desc}
                   onChange={handleChange}
+                  className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+                  required
                 />
               </div>
-
-              <div>
-                <button onClick={handleSaveHotels}>Add Travel Packages</button>
+              <div className="flex space-x-4">
+                <button
+                  type="button"
+                  onClick={handleSaveTravels}
+                  className="bg-green-500 text-white px-5 py-2 rounded-lg shadow-md hover:bg-green-700"
+                >
+                  {editMode ? "Update Travel" : "Save Travel"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="bg-gray-500 text-white px-5 py-2 rounded-lg shadow-md hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
               </div>
             </form>
           </div>
