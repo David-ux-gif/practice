@@ -11,7 +11,7 @@ const HotelList = () => {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const response = await axios.get("http://localhost:5229/wandermateBackend/hotel");
+        const response = await axios.get("http://localhost:3000/hotels");
         setHotels(response.data);
         setLoading(false);
 
@@ -33,11 +33,11 @@ const HotelList = () => {
   }
 
   return (
-    <div className="max-w-6xl m-auto rounded-lg">
-      <ul className="flex flex-col gap-8 mt-8">
+    <div className="max-w-6xl m-auto rounded-lg ">
+      <ul className="flex flex-col gap-8 mt-8 ">
         {hotels.map((hotel) => (
-          <li key={hotel.id} className="bg-white rounded-lg shadow-lg flex w-full">
-            <img src={hotel.image} alt={hotel.name} className="h-72 w-1/2 object-cover rounded-l-lg"/>
+          <li key={hotel.id} className="bg-white rounded-lg shadow-lg flex w-full hover:scale-105 transition duration-500 ease-in-out">
+            <img src={hotel.img} alt={hotel.name} className="h-72 w-1/2 object-cover rounded-l-lg"/>
             <div className="p-4 w-1/2 flex flex-col justify-center items-center">
               <div>
                 <h2 className="text-xl font-medium mb-2">{hotel.name}</h2>

@@ -39,11 +39,11 @@ const TravelPackages = () => {
 
   return (
     <div className="max-w-6xl m-auto rounded-lg">
-      <ul className="flex flex-col gap-8 mt-8">
+      <ul className="flex flex-col gap-8 mt-8 ">
         {travelPackages.map((travel) => (
           <li
             key={travel.id}
-            className="bg-white rounded-lg shadow-lg flex w-full"
+            className="bg-white rounded-lg shadow-lg flex w-full hover:scale-105 transition duration-500 ease-in-out"
           >
             <img
               src={travel.img}

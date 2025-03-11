@@ -22,7 +22,7 @@ function Navigation() {
             <Link to="/hotels" className="hover:underline">Hotel</Link>
           </li>
         </ul>
-        <Link to="/profile"><img src="src/assets/userProfile.jpg" alt="User Profile" className="w-10 h-10 rounded-full" /></Link>
+        <Link to="/profile"><img src="src/assets/Profile.webp" alt="User Profile" className="w-10 h-10 rounded-full" /></Link>
       </div>
     </nav>
   );

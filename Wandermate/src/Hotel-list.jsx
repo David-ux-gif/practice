@@ -12,7 +12,7 @@ const Hotel = () => {
   useEffect(() => {
     const fetchHotel = async () => {
       try {
-        const response = await fetch(`http://localhost:5229/wandermateBackend/hotel${id}`);
+        const response = await fetch(`http://localhost:3000/hotels/${id}`);
         if (!response.ok) {
           throw new Error("Network response not ok");
         }

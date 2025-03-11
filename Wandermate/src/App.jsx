@@ -15,7 +15,7 @@ import Hotel from "./Hotel-list";
 import TravelPackages from "./TravelPackages";
 import TravelList from "./Travel-list";
 import ProfileCard from "./Profile";
-import Dashboard from "./DashBoard/DashBoard";
+// import Dashboard from "./DashBoard/DashBoard";
 
 
 
@@ -37,7 +37,7 @@ function App() {
           <Route path="/hotels" element={<HotelList />} />
           <Route path="/hotels/:id" element={<Hotel />} />
           <Route path="/profile" element={<ProfileCard />} />
-          <Route path="/admin/*" element={<Dashboard/>} />
+          {/* <Route path="/admin/*" element={<Dashboard/>} /> */}
         </Routes>
       </BrowserRouter>
     </>
