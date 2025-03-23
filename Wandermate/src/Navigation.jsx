@@ -6,7 +6,7 @@ function Navigation() {
     <nav>
       <div className="container mx-auto flex justify-between items-center p-5">
         <h1 className="text-2xl font-bold text-blue-700">
-          <Link to="/">Wandermate</Link>
+          <Link to="/">Hotels.</Link>
         </h1>
         <ul className="flex gap-8 font-bold text-lg ">
           <li>

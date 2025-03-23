@@ -32,7 +32,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="font-semibold flex justify-center w-full p-3">
-            <p>&copy; 2024 Wandermate LLC All rights reserved</p>
+            <p>&copy; LLC All rights reserved</p>
           </div>
         </div>
       </footer>
